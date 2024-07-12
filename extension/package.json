@@ -1,0 +1,34 @@
+{
+  "name": "dev-ex-docs",
+  "publisher": "amplify-js",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "repository": "https://github.com/Aadim1/docs",
+  "license": "Apache-2.0",
+  "activationEvents": [
+    "onLanguage:mdx"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mdx",
+        "extensions": [
+          ".mdx"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@types/vscode": "^1.56.0",
+    "typescript": "^4.1.5",
+    "vsce": "^2.4.2"
+  }
+}

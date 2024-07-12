@@ -14,6 +14,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@": ["src/*"],
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
       "@/data/*": ["src/data/*"],
@@ -32,5 +33,5 @@
     "tasks",
     "adobe.d.ts",
     "jest.setup.ts"
-  ]
+, "src/pages/[platform]/build-a-backend/auth/connect-your-frontend/sign-in/sign-in.js"  ]
 }

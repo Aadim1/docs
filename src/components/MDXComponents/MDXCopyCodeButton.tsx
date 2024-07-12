@@ -29,7 +29,7 @@ export const MDXCopyCodeButton = ({
     }, 2000);
   };
   return (
-    <CopyToClipboard text={copyText} onCopy={copy}>
+    <CopyToClipboard text={'copyText'} onCopy={copy}>
       <Button
         size="small"
         variation="link"

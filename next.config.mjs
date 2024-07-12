@@ -1,14 +1,21 @@
+import remarkCodeImport from 'remark-code-import';
 import { createRequire } from 'module';
 import dotenv from 'dotenv';
 import createMDX from '@next/mdx';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
+import checkSnippetName from './plugins/check-snippet-name.mjs';
 
 const require = createRequire(import.meta.url);
 import rehypeImgSize from 'rehype-img-size';
+
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import path from 'path';
 
 dotenv.config({ path: './.env.custom' });
+
+const pagesDirectory = path.resolve(process.cwd());
+console.log('Page', pagesDirectory);
 
 const nextJSConfig = () => {
   const withMDX = createMDX({
@@ -16,6 +23,7 @@ const nextJSConfig = () => {
     options: {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
+        checkSnippetName,
         [rehypeImgSize, { dir: 'public' }],
         rehypeMdxCodeProps,
         rehypeSlug
@@ -26,6 +34,14 @@ const nextJSConfig = () => {
   const shouldAnalyzeBundles = process.env.ANALYZE === 'true';
 
   let nextConfig = withMDX({
+    webpack: (config) => {
+      config.module.rules.push({
+        test: /\.(ts|tsx|js|jsx)$/,
+        include: [path.resolve(process.cwd(), '/codesnippets/src')],
+        type: 'asset/source'
+      });
+      return config;
+    },
     output: 'export',
     distDir: 'client/www/next-build',
     generateBuildId: async () => {
