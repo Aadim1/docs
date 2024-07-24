@@ -10,7 +10,7 @@ import { getLastModifiedDate } from 'git-jiggy';
 // Set up the root path so that we can get the correct path from the current working directory
 const rootPath = path.resolve(cwd(), 'src/pages');
 
-/**
+/**x
  * Helper function to use RegEx to grab the "meta" object
  * @param {string} filePath
  * @returns

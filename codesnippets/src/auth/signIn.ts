@@ -1,7 +1,5 @@
-const count = 0;
+const wrapperSignIn = async (): Promise<String> => {
+  return Promise.resolve('Hello World Sign In');
+};
 
-if (count % 2 == 0) {
-  console.log('EVEN');
-} else {
-  console.log('ODD');
-}
+export default wrapperSignIn;

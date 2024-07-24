@@ -1,0 +1,26 @@
+{
+  "name": "code_snippets",
+  "version": "1.0.0",
+  "description": "A collection of useful code snippets",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/docs.git"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "login:verdaccio": "npm login --registry http://localhost:4873 --username aadimch --password 1234",
+    "push:verdaccio": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "code",
+    "snippets",
+    "utilities"
+  ],
+  "author": "aws-amplify",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.9"
+  }
+}
