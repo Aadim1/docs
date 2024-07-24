@@ -32,10 +32,12 @@ jobs:
       - name: Load Verdaccio and code snippets
         uses: ./.github/actions/load-verdaccio-with-snippets
 
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 18
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
         with:
-          node-version: '18'
+          node-version: 18.20.2
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       
       - name: Install dependencies and run dev server
         working-directory: ./samples-staging/samples/docs/
