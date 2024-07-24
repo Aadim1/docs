@@ -28,9 +28,6 @@ jobs:
           path: samples-staging
           ref: feat/docs-e2e
           token: ${{ secrets.GH_TOKEN_STAGING_READ_AADIM }}
-      
-      - name: Load Verdaccio and code snippets
-        uses: ./.github/actions/load-verdaccio-with-snippets
 
       - name: Setup Node.js 18
         uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
@@ -38,6 +35,11 @@ jobs:
           node-version: 18.20.2
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      
+      - name: Load Verdaccio and code snippets
+        uses: ./.github/actions/load-verdaccio-with-snippets
+
+      
       
       - name: Install dependencies and run dev server
         working-directory: ./samples-staging/samples/docs/
