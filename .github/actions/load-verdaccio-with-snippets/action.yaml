@@ -62,6 +62,7 @@ runs:
       
     - name: File system
       working-directory: ./docs
+      shell: bash
       run: ls
 
     - name: Publish to verdaccio
