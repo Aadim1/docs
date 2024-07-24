@@ -43,6 +43,26 @@ runs:
         git config --global user.name $NPM_USER
         git status
         git --no-pager diff
+    
+    - name: Configure registry and git in Samples Staging
+      shell: bash
+      working-directory: ./samples-staging
+      env:
+        NPM_REGISTRY: http://localhost:4873/
+        NPM_USER: verdaccio
+        NPM_PASS: verdaccio
+        NPM_EMAIL: verdaccio@amplify.docs
+      run: |
+        yarn config set registry $NPM_REGISTRY
+        npm set registry $NPM_REGISTRY
+        git config --global user.email $NPM_EMAIL
+        git config --global user.name $NPM_USER
+        git status
+        git --no-pager diff
+      
+    - name: File system
+      working-directory: ./docs
+      run: ls
 
     - name: Publish to verdaccio
       shell: bash
