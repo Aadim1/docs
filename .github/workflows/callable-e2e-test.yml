@@ -50,11 +50,10 @@ jobs:
         run: |
           npm install --registry="http://localhost:4873/"
           npm install code_snippets --registry="http://localhost:4873/"
-          npm run dev
 
       
       - name: Run E2E Test
         working-directory: ./samples-staging
         run: |
-          npm run ci:docs 
+          yarn ci:docs
   
