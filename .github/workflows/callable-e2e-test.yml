@@ -50,6 +50,7 @@ jobs:
         run: |
           npm install
           npm run dev
+
       
       - name: Run E2E Test
         working-directory: ./samples-staging

@@ -30,7 +30,7 @@ runs:
 
     - name: Configure registry and git
       shell: bash
-      working-directory: ./
+      working-directory: ./docs
       env:
         NPM_REGISTRY: http://localhost:4873/
         NPM_USER: verdaccio
