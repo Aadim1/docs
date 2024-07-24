@@ -21,7 +21,7 @@ jobs:
       - name: Checkout Docs Repo
         uses: actions/checkout@v2
 
-      - name: Checkout Example App from Repo B
+      - name: Checkout Example App from Samples Staging
         uses: actions/checkout@v2
         with:
           repository: Aadim1/amplify-js-samples-staging
@@ -30,7 +30,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN_STAGING_READ_AADIM }}
       
       - name: Load Verdaccio and code snippets
-        uses: ./docs/.github/actions/load-verdaccio-with-snippets
+        uses: ./.github/actions/load-verdaccio-with-snippets
 
       - name: Set Up Node.js
         uses: actions/setup-node@v2
