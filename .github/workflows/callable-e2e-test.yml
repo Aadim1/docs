@@ -41,7 +41,7 @@ jobs:
 
       
       - name: Load Verdaccio and code snippets
-        uses: ./docs/.github/actions/load-verdaccio-with-snippets
+        uses: ./.github/actions/load-verdaccio-with-snippets
 
       
       
