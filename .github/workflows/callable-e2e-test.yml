@@ -20,9 +20,12 @@ jobs:
     steps:
       - name: Checkout Docs Repo
         uses: actions/checkout@v2
+        with: 
+          path: docs
 
       - name: Checkout Example App from Samples Staging
         uses: actions/checkout@v2
+        
         with:
           repository: Aadim1/amplify-js-samples-staging
           path: samples-staging

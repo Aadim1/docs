@@ -46,6 +46,6 @@ runs:
 
     - name: Publish to verdaccio
       shell: bash
-      working-directory: ./codenippets
+      working-directory: ./docs/codenippets
       run: |
         npm publish
