@@ -59,14 +59,9 @@ runs:
         git config --global user.name $NPM_USER
         git status
         git --no-pager diff
-      
-    - name: File system
-      working-directory: ./docs
-      shell: bash
-      run: ls
 
     - name: Publish to verdaccio
       shell: bash
-      working-directory: ./docs/codenippets
+      working-directory: ./docs/codesnippets
       run: |
         npm publish
