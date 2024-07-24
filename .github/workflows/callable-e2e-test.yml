@@ -46,7 +46,7 @@ jobs:
       
       
       - name: Install dependencies and run dev server
-        working-directory: ./samples-staging/samples/docs/
+        working-directory: ./samples-staging/samples/docs/example-docs-app
         run: |
           npm install
           npm run dev
