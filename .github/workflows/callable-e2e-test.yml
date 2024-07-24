@@ -48,7 +48,8 @@ jobs:
       - name: Install dependencies and run dev server
         working-directory: ./samples-staging/samples/docs/example-docs-app
         run: |
-          npm install
+          npm install --registry="http://localhost:4873/"
+          npm install code_snippets --registry="http://localhost:4873/"
           npm run dev
 
       
