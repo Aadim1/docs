@@ -25,12 +25,12 @@ runs:
         NPM_EMAIL: verdaccio@amplify.js
       run: |
         npm i -g npm-cli-adduser
-        npm-cli-adduser
+        npm-cli-adduser --username $NPM_USER --password $NPM_PASS --email $NPM_EMAIL
         sleep 1
 
     - name: Configure registry and git
       shell: bash
-      working-directory: ./amplify-js
+      working-directory: ./
       env:
         NPM_REGISTRY: http://localhost:4873/
         NPM_USER: verdaccio
@@ -46,6 +46,6 @@ runs:
 
     - name: Publish to verdaccio
       shell: bash
-      working-directory: ./docs/codenippets
+      working-directory: ./codenippets
       run: |
         npm publish
