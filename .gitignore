@@ -72,6 +72,9 @@ public/next-image-export-optimizer-hashes.json
 src/directory/directory.json
 src/directory/flatDirectory.json
 
+#Aadim intern project
+extension/out/
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
