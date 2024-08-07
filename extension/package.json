@@ -19,6 +19,16 @@
           ".mdx"
         ]
       }
+    ],
+    "commands": [
+      {
+        "command": "extension.activateInlineSnippets",
+        "title": "Activate Inline Snippets"
+      },
+      {
+        "command": "extension.deactivateInlineSnippets",
+        "title": "Deactivate Inline Snippets"
+      }
     ]
   },
   "scripts": {
