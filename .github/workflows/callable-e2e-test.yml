@@ -42,7 +42,7 @@ jobs:
         uses: ./docs/.github/actions/load-verdaccio-with-snippets
       
       - name: Install dependencies and run dev server
-        working-directory: ./samples-staging/samples/docs/example-docs-app
+        working-directory: ./samples-staging/samples/vite/docs/example-docs-app
         run: |
           npm install --registry="http://localhost:4873/"
           npm install code_snippets --registry="http://localhost:4873/"
