@@ -41,6 +41,11 @@ jobs:
       - name: Load Verdaccio and code snippets
         uses: ./docs/.github/actions/load-verdaccio-with-snippets
       
+      - name: Run NPM Install
+        working-directory: ./samples-staging
+        run: |
+          npm install --registry="http://localhost:4873/"
+      
       - name: Install dependencies and run dev server
         working-directory: ./samples-staging/samples/vite/docs/example-docs-app
         run: |
