@@ -2,17 +2,26 @@ import { visit } from 'unist-util-visit';
 import fs from 'fs';
 import path from 'path';
 
-export default (options) => {
-  return (tree, file) => {
+/**
+ * This is a remark plugin that checks if the snippet file exists
+ * and replaces the code snippet with the actual code.
+ * Heavily influenced by [remark-code-import](https://www.npmjs.com/package/remark-code-import) plugin.
+ * @returns A remark plugin function.
+ */
+export default (_) => {
+  return (tree, _) => {
     const validateSnippets = 'as';
 
     visit(tree, 'element', (node) => {
       if (validateSnippets.length == 0) {
         return;
       }
+
+      // tagName is code, when the backticks happen.
       if (node.tagName === 'code' && node.data && node.data.meta) {
         const meta = node.data.meta;
 
+        // checks if the code containing ```, has snippetPath. If not ignore.
         const snippetPathMatch = meta.match(/snippetPath="(.*?)"/);
         if (snippetPathMatch) {
           const snippetPath = snippetPathMatch[1];
@@ -21,15 +30,18 @@ export default (options) => {
             'codesnippets/src/',
             snippetPath
           );
+
+          // Throw an error if no file is found. This will get triggered on build time.
           if (!fs.existsSync(filePath)) {
             throw new Error(`Snippet file ${snippetPath} does not exist`);
           }
           const codeString = fs.readFileSync(filePath, 'utf-8');
-          console.log(extractCodeBlocks(codeString));
+
+          // Inject the codesnippet into the code tree.
           node.children = [
             {
               type: 'text',
-              value: codeString
+              value: extractCodeSnippets(codeString)
             }
           ];
         }
@@ -38,67 +50,49 @@ export default (options) => {
   };
 };
 
-function extractCodeBlocks(code) {
-  const lines = code.split('\n');
-  let formattedCode = [];
-  let insideBlock = false;
-  let blockLevel = 0;
-  let indentStack = [];
-  lines.forEach((line) => {
-    const trimmedLine = line.trim();
+/**
+ * Takes the string and parses them to only take intended lines.
+ * It takes and formats the code snippets between the [[start]] and [[end]] tags.
+ * @param {string} codeString The string that needs to be formatted.
+ * @returns The formatted string
+ */
+function extractCodeSnippets(codeString) {
+  const stack = [];
+  const snippets = [];
+  const lines = codeString.split('\n');
+  let currentIndent = 0;
 
-    if (trimmedLine === '// [[start]]') {
-      insideBlock = true;
-      blockLevel++;
-      indentStack.push(line.indexOf('// [[start]]'));
-      return;
-    }
+  let currentSnippet = [];
 
-    if (trimmedLine === '// [[end]]') {
-      blockLevel--;
-      if (blockLevel === 0) {
-        insideBlock = false;
+  for (const line of lines) {
+    const strippedLine = line.trim();
+    const removeWhiteSpace = strippedLine.replace(/\s+/g, '');
+
+    if (removeWhiteSpace.startsWith('//[[start]]')) {
+      stack.push({ snippet: currentSnippet, indent: currentIndent });
+      currentSnippet = [];
+      currentIndent = line.length - line.trimStart().length;
+    } else if (removeWhiteSpace.startsWith('//[[end]]')) {
+      if (stack.length === 0) {
+        throw new Error('Unmatched [[end]] tag found');
       }
-      indentStack.pop();
-      return;
+      const snippetContent = currentSnippet.join('\n');
+      if (stack.length === 1) {
+        snippets.push(snippetContent);
+      } else {
+        stack[stack.length - 2].snippet.push(snippetContent);
+      }
+      const { snippet, indent } = stack.pop();
+      currentSnippet = snippet;
+      currentIndent = indent;
+    } else {
+      currentSnippet.push(line.slice(currentIndent));
     }
+  }
 
-    if (insideBlock && blockLevel > 0) {
-      let currentIndent = indentStack[indentStack.length - 1];
-      formattedCode.push(line.slice(currentIndent));
-    }
-  });
+  if (stack.length > 0) {
+    throw new Error('Unmatched [[start]] tag found');
+  }
 
-  return formattedCode.join('\n');
+  return snippets.join('\n');
 }
-
-// Function to format extracted code
-const formatExtractedCode = (extractedCode) => {
-  return extractedCode.join('\n');
-};
-
-// const snippetNameMatch = meta.match(/snippetName="(.*?)"/);
-// if (snippetNameMatch) {
-//   // console.log('GOT HERE ATLEAST', node);
-//   const snippetName = snippetNameMatch[1];
-//   if (!jsSnippets[snippetName]) {
-//     console.log(jsSnippets);
-//     throw new Error(
-//       `Snippet ${snippetName} not found in file ${file.path}`
-//     );
-//   } else {
-//     console.log('GOT HERE', node);
-//     // the code snippets exists
-//     const codeString = fs.readFileSync(
-//       path.resolve(process.cwd(), jsSnippets[snippetName]),
-//       'utf-8'
-//     );
-//     console.log(extractCodeBlocks(codeString));
-//     node.children = [
-//       {
-//         type: 'text',
-//         value: codeString
-//       }
-//     ];
-//   }
-// }
