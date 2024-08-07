@@ -10,8 +10,6 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [e2e-test-trigger]
-  # schedule:
-  #   - cron: '0 0 */2 * *' # Every 2 days
 
 jobs:
   e2e:
@@ -42,8 +40,6 @@ jobs:
       
       - name: Load Verdaccio and code snippets
         uses: ./docs/.github/actions/load-verdaccio-with-snippets
-
-      
       
       - name: Install dependencies and run dev server
         working-directory: ./samples-staging/samples/docs/example-docs-app
@@ -55,5 +51,5 @@ jobs:
       - name: Run E2E Test
         working-directory: ./samples-staging
         run: |
-          yarn ci:docs
+          yarn ci:test vite docs example-docs-app "*"
   
