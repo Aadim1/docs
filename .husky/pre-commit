@@ -4,3 +4,5 @@
 # yarn spellcheck-diff
 
 # yarn lint-staged
+
+yarn extension-cleanup
