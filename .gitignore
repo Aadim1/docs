@@ -76,6 +76,7 @@ src/directory/flatDirectory.json
 /extension/out
 /extension/*.vsix
 /extension/yarn.lock
+#code-snippet-extension-end
 
 
 #amplify-do-not-edit-begin
