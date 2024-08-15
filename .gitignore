@@ -72,6 +72,12 @@ public/next-image-export-optimizer-hashes.json
 src/directory/directory.json
 src/directory/flatDirectory.json
 
+#code-snippet-extension-begin
+/extension/out
+/extension/*.vsix
+/extension/yarn.lock
+
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
