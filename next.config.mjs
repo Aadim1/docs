@@ -4,6 +4,7 @@ import createMDX from '@next/mdx';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 
 const require = createRequire(import.meta.url);
+import customPlugin from './plugin/code-snippet.mjs';
 import rehypeImgSize from 'rehype-img-size';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
@@ -16,7 +17,7 @@ const nextJSConfig = () => {
     options: {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
-        [rehypeImgSize, { dir: 'public' }],
+        [customPlugin, rehypeImgSize, { dir: 'public' }],
         rehypeMdxCodeProps,
         rehypeSlug
       ]
